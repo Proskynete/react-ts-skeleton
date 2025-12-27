@@ -18,8 +18,8 @@ export const greetingQueries = {
       queryKey: greetingQueries.lists(),
       queryFn: async () => {
         const repository = new GreetingApiClient();
-        const dtos = await repository.listGreetings();
-        return dtos.map(GreetingMapper.toDomain);
+        const dto = await repository.listGreetings();
+        return [GreetingMapper.toDomain(dto)];
       },
     }),
 

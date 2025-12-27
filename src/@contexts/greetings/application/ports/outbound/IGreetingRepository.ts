@@ -14,5 +14,5 @@ export interface IGreetingRepository {
   createGreeting(
     request: CreateGreetingRequestDto
   ): Promise<GreetingResponseDto>;
-  listGreetings(): Promise<GreetingResponseDto[]>;
+  listGreetings(): Promise<GreetingResponseDto>;
 }

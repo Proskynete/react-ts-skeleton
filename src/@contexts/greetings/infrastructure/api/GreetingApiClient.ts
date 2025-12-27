@@ -35,8 +35,8 @@ export class GreetingApiClient implements IGreetingRepository {
     return response.data;
   }
 
-  async listGreetings(): Promise<GreetingResponseDto[]> {
-    const response = await httpClient.get<GreetingResponseDto[]>(this.baseUrl);
+  async listGreetings(): Promise<GreetingResponseDto> {
+    const response = await httpClient.get<GreetingResponseDto>(this.baseUrl);
     return response.data;
   }
 }
