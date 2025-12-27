@@ -6,7 +6,6 @@
  */
 
 export interface GreetingResponseDto {
-  id: string;
   message: string;
   timestamp: string;
 }

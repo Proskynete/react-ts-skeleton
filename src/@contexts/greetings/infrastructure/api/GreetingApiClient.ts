@@ -18,13 +18,6 @@ export class GreetingApiClient implements IGreetingRepository {
     return response.data;
   }
 
-  async getGreetingById(id: string): Promise<GreetingResponseDto> {
-    const response = await httpClient.get<GreetingResponseDto>(
-      `${this.baseUrl}/${id}`
-    );
-    return response.data;
-  }
-
   async createGreeting(
     request: CreateGreetingRequestDto
   ): Promise<GreetingResponseDto> {

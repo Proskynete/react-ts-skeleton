@@ -23,9 +23,8 @@ export const GreetingMapper = {
    */
   toResponseDto(entity: Greeting): GreetingResponseDto {
     return {
-      id: entity.id,
       message: entity.message.value,
-      timestamp: entity.createdAt.toISOString(),
+      timestamp: entity.timestamp.toISOString(),
     };
   },
 

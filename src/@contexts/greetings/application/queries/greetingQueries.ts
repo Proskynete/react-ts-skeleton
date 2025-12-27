@@ -10,12 +10,9 @@ import { GreetingApiClient } from "../../infrastructure/api/GreetingApiClient";
 import { GreetingMapper } from "../mappers/GreetingMapper";
 
 export const greetingQueries = {
-  all: () => ["greetings"] as const,
-
-  lists: () => [...greetingQueries.all(), "list"] as const,
   list: () =>
     queryOptions({
-      queryKey: greetingQueries.lists(),
+      queryKey: ["greetings", "list"] as const,
       queryFn: async () => {
         const repository = new GreetingApiClient();
         const dto = await repository.listGreetings();
@@ -23,17 +20,13 @@ export const greetingQueries = {
       },
     }),
 
-  details: () => [...greetingQueries.all(), "detail"] as const,
-  detail: (id?: string) =>
+  detail: () =>
     queryOptions({
-      queryKey: [...greetingQueries.details(), id] as const,
+      queryKey: ["greetings", "detail"] as const,
       queryFn: async () => {
         const repository = new GreetingApiClient();
-        const dto = id
-          ? await repository.getGreetingById(id)
-          : await repository.getGreeting();
+        const dto = await repository.getGreeting();
         return GreetingMapper.toDomain(dto);
       },
-      enabled: !!id || id === undefined,
     }),
 };

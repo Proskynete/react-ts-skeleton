@@ -43,8 +43,8 @@ export const GreetingList = () => {
 
   return (
     <div role="list" aria-label="Greetings list" className="space-y-4">
-      {greetings.map((greeting) => (
-        <GreetingCard key={greeting.id} greeting={greeting} />
+      {greetings.map((greeting, i) => (
+        <GreetingCard key={i} greeting={greeting} />
       ))}
     </div>
   );

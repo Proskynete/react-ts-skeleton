@@ -10,7 +10,6 @@ import type { CreateGreetingRequestDto } from "../../dtos/CreateGreetingRequestD
 
 export interface IGreetingRepository {
   getGreeting(): Promise<GreetingResponseDto>;
-  getGreetingById(id: string): Promise<GreetingResponseDto>;
   createGreeting(
     request: CreateGreetingRequestDto
   ): Promise<GreetingResponseDto>;

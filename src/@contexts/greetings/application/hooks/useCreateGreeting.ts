@@ -12,7 +12,6 @@ import {
   type CreateGreetingInput,
   createGreetingSchema,
 } from "../validators/greetingSchemas";
-import { greetingQueries } from "../queries/greetingQueries";
 
 export const useCreateGreeting = () => {
   const queryClient = useQueryClient();
@@ -34,7 +33,7 @@ export const useCreateGreeting = () => {
     },
     onSuccess: () => {
       // Invalidate queries to refetch
-      queryClient.invalidateQueries({ queryKey: greetingQueries.all() });
+      queryClient.invalidateQueries({ queryKey: ["greetings"] });
     },
   });
 };

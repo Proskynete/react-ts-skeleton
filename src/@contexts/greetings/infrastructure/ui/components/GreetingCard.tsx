@@ -10,7 +10,7 @@ import type { Greeting } from "../../../domain/entities/Greeting";
 interface GreetingCardProps {
   greeting: Greeting;
   onUpdate?: (greeting: Greeting) => void;
-  onDelete?: (id: string) => void;
+  onDelete?: (greeting: Greeting) => void;
 }
 
 export const GreetingCard = ({
@@ -37,7 +37,7 @@ export const GreetingCard = ({
       <footer className="flex justify-between items-center gap-2">
         <time
           className="text-sm text-gray-600"
-          dateTime={greeting.createdAt.toISOString()}
+          dateTime={greeting.timestamp.toISOString()}
         >
           {greeting.getFormattedTimestamp()}
         </time>
@@ -58,7 +58,7 @@ export const GreetingCard = ({
           )}
           {onDelete && (
             <button
-              onClick={() => onDelete(greeting.id)}
+              onClick={() => onDelete(greeting)}
               className="px-3 py-1.5 border border-gray-300 rounded bg-white text-gray-700 text-sm hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
               aria-label="Delete greeting"
             >

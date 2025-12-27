@@ -6,52 +6,28 @@
  */
 
 import { Message } from "../value-objects/Message";
-import { InvalidGreetingException } from "../exceptions/InvalidGreetingException";
 
 export class Greeting {
-  readonly id: string;
   readonly message: Message;
-  readonly createdAt: Date;
-  readonly updatedAt: Date;
+  readonly timestamp: Date;
 
-  private constructor(
-    id: string,
-    message: Message,
-    createdAt: Date,
-    updatedAt: Date
-  ) {
-    this.id = id;
+  private constructor(message: Message, timestamp: Date) {
     this.message = message;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+    this.timestamp = timestamp;
   }
 
-  static create(id: string, message: string): Greeting {
-    if (!id || id.trim().length === 0) {
-      throw new InvalidGreetingException("Greeting ID cannot be empty");
-    }
-
-    const now = new Date();
-    return new Greeting(id, Message.create(message), now, now);
+  static create(message: string): Greeting {
+    return new Greeting(Message.create(message), new Date());
   }
 
-  static fromDto(dto: {
-    id: string;
-    message: string;
-    timestamp: string;
-  }): Greeting {
-    const createdAt = new Date(dto.timestamp);
-    return new Greeting(
-      dto.id,
-      Message.create(dto.message),
-      createdAt,
-      createdAt
-    );
+  static fromDto(dto: { message: string; timestamp: string }): Greeting {
+    const timestamp = new Date(dto.timestamp);
+    return new Greeting(Message.create(dto.message), timestamp);
   }
 
   isRecent(): boolean {
     const oneHourAgo = Date.now() - 60 * 60 * 1000;
-    return this.createdAt.getTime() > oneHourAgo;
+    return this.timestamp.getTime() > oneHourAgo;
   }
 
   isLongMessage(): boolean {
@@ -59,7 +35,7 @@ export class Greeting {
   }
 
   getFormattedTimestamp(): string {
-    return this.createdAt.toLocaleString("en-US", {
+    return this.timestamp.toLocaleString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -69,15 +45,13 @@ export class Greeting {
   }
 
   updateMessage(newMessage: string): Greeting {
-    return new Greeting(
-      this.id,
-      Message.create(newMessage),
-      this.createdAt,
-      new Date()
-    );
+    return new Greeting(Message.create(newMessage), new Date());
   }
 
   equals(other: Greeting): boolean {
-    return this.id === other.id;
+    return (
+      this.message.value === other.message.value &&
+      this.timestamp.getTime() === other.timestamp.getTime()
+    );
   }
 }
