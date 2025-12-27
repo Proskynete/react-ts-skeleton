@@ -11,7 +11,7 @@ import type { CreateGreetingRequestDto } from "../../application/dtos/CreateGree
 import { httpClient } from "@shared/infrastructure/http/httpClient";
 
 export class GreetingApiClient implements IGreetingRepository {
-  private readonly baseUrl = "/api/v1/greetings";
+  private readonly baseUrl = "/api/v2/greetings";
 
   async getGreeting(): Promise<GreetingResponseDto> {
     const response = await httpClient.get<GreetingResponseDto>(this.baseUrl);
