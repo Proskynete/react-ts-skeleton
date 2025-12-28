@@ -4,14 +4,13 @@
  * @layer App
  */
 
-import React from "react";
 import { AppProviders } from "./AppProviders";
-import { GreetingsPage } from "@contexts/greetings/infrastructure/ui/pages/GreetingsPage";
+import { ExampleForm } from "./components/ExampleForm";
 
-export const App: React.FC = () => {
+export const App = () => {
   return (
     <AppProviders>
-      <GreetingsPage />
+      <ExampleForm />
     </AppProviders>
   );
 };
